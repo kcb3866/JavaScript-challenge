@@ -9,6 +9,8 @@ console.log("app.js is loaded!")
 var tbody = d3.select("tbody");
 
 function create_table(ufoData) {
+    tbody.html('');
+
     console.log("create table function was called");
     ufoData.forEach(function(ufo) {
         // console.log(ufoData);
@@ -21,24 +23,25 @@ function create_table(ufoData) {
     });
 };
 
-var button = d3.select("#filter-bt");
+var button = d3.select("#filter-btn");
 
-button.on("click", handleClick());
+button.on("click", handleClick);
 
 function handleClick() {
-    // d3.event.preventDefault();
+    d3.event.preventDefault();
     console.log("button was clicked");
     var inputText = d3.select("#datetime");
     console.log(inputText);
     var inputValue = inputText.property("value");
-    // console.log("inputText", inputText);
+    console.log("inputValue", inputValue);
     var filterData = tableData;
     if (inputText != "") {
-        filterData.filter(function(filterRow) {
-            if (filterRow.datetime === inputText) {
+       filterData = filterData.filter(function(filterRow) {
+            if (filterRow.datetime === inputValue) {
                 return true;
             };            
         });
+        console.log(filterData);
 
         create_table(filterData);
     };
